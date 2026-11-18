@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Department of Justice Applications</title>
+<style>
+  :root {
+    --bg: #eef0f4; --card: #ffffff; --ink: #1b2233; --muted: #5b6477;
+    --line: #cfd4de; --navy: #1f2f56; --gold: #b58a2b; --err: #a52a2a; --ok: #1f6b3a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #131722; --card: #1c2231; --ink: #e8ebf2; --muted: #98a1b6;
+            --line: #343c52; --navy: #8fa6e0; --gold: #d4a94a; --err: #ff8a8a; --ok: #7fd49b; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 16px/1.5 Georgia, "Times New Roman", serif; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 16px 64px; }
+  header { border-bottom: 3px solid var(--gold); padding-bottom: 16px; margin-bottom: 24px; }
+  h1 { margin: 0; font-size: 1.7rem; color: var(--navy); }
+  header p { margin: 4px 0 0; color: var(--muted); }
+  .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+  .tabs button { flex: 1; padding: 12px; border: 1px solid var(--line); background: var(--card);
+                 color: var(--ink); font: inherit; cursor: pointer; border-radius: 6px; }
+  .tabs button[aria-selected="true"] { background: var(--navy); color: #fff; border-color: var(--navy); }
+  @media (prefers-color-scheme: dark) { .tabs button[aria-selected="true"] { color: #131722; } }
+  form { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 24px; }
+  form[hidden], fieldset[hidden], div[hidden] { display: none; }
+  fieldset { border: 0; padding: 0; margin: 0 0 24px; }
+  legend { font-weight: bold; color: var(--navy); font-size: 1.1rem; padding: 0 0 8px; width: 100%;
+           border-bottom: 1px solid var(--line); margin-bottom: 12px; }
+  label.f, .f { display: block; margin: 12px 0 4px; font-size: .95rem; }
+  input[type=text], input[type=tel], input[type=number], select, textarea {
+    width: 100%; padding: 10px; border: 1px solid var(--line); border-radius: 6px;
+    font: inherit; background: var(--bg); color: var(--ink); }
+  textarea { min-height: 96px; resize: vertical; }
+  input:focus, select:focus, textarea:focus, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
+  .check { display: flex; gap: 8px; align-items: flex-start; margin: 10px 0; font-size: .95rem; }
+  .check input { margin-top: 5px; }
+  .note { background: var(--bg); border-left: 4px solid var(--gold); padding: 10px 12px; margin: 12px 0;
+          font-size: .92rem; color: var(--muted); }
+  .req { color: var(--err); }
+  .submit { width: 100%; padding: 14px; background: var(--navy); color: #fff; border: 0; border-radius: 6px;
+            font: bold 1rem Georgia, serif; cursor: pointer; }
+  @media (prefers-color-scheme: dark) { .submit { color: #131722; } }
+  .submit:disabled { opacity: .5; cursor: not-allowed; }
+  .status { margin-top: 12px; font-weight: bold; }
+  .hp { position: absolute; left: -9999px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>BetterDays RP - Department of Justice</h1>
+    <p>Firearm Registration and Business Licensing Applications</p>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button role="tab" id="tab-w" aria-selected="true" onclick="show('w')">Firearm Registration</button>
+    <button role="tab" id="tab-b" aria-selected="false" onclick="show('b')">Business License</button>
+  </div>
+
+  <!-- ============ WEAPONS FORM ============ -->
+  <form id="form-w">
+    <input type="hidden" name="access_key" value="e7d31af5-5035-42c1-8aef-91bab0f929fc">
+    <input type="hidden" name="subject" value="New Firearm Registration Application">
+    <input type="hidden" name="from_name" value="DOJ Applications">
+    <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+
+    <fieldset>
+      <legend>Applicant information</legend>
+      <label class="f">Discord username <span class="req">*</span></label>
+      <input type="text" name="Discord" required>
+      <label class="f">Character full name <span class="req">*</span></label>
+      <input type="text" name="Character Name" required>
+      <label class="f">Date of birth (IC) <span class="req">*</span></label>
+      <input type="text" name="DOB" placeholder="MM/DD/YYYY" required>
+      <label class="f">Phone number (IC) <span class="req">*</span></label>
+      <input type="tel" name="Phone" required>
+    </fieldset>
+
+    <fieldset>
+      <legend>Firearm details</legend>
+      <label class="f">Firearm class <span class="req">*</span></label>
+      <select name="Firearm Class" id="fclass" required>
+        <option value="">Select a class</option>
+        <option value="Class 1">Class 1: 9mm or .45, no SMGs or automatic fire ($5,000)</option>
+        <option value="Class 2">Class 2: SMGs and shotguns, home/store defense only ($10,000)</option>
+        <option value="Class 3">Class 3: AKs and anything 5.56 or higher ($25,000 &amp; Law Enforcement approval)</option>
+      </select>
+
+      <label class="f">Weapon make and model <span class="req">*</span></label>
+      <input type="text" name="Weapon Model" required>
+      <label class="f">Serial number (if applicable)</label>
+      <input type="text" name="Serial Number">
+      <label class="f">Do you currently own any firearms IC? <span class="req">*</span></label>
+      <select name="Owns Firearms" required>
+        <option value="">Select</option><option>Yes</option><option>No</option>
+      </select>
+      <label class="f">Any prior felonies or active warrants IC? <span class="req">*</span></label>
+      <select name="Felonies or Warrants" required>
+        <option value="">Select</option><option>Yes</option><option>No</option>
+      </select>
+    </fieldset>
+
+    <fieldset id="class2Block" hidden>
+      <legend>Class 2 requirements</legend>
+      <label class="f">Home or store address where the weapon will be kept and used <span class="req">*</span></label>
+      <input type="text" name="Class 2 Location" id="c2loc">
+      <label class="check"><input type="checkbox" name="Class 2 Acknowledged" value="Yes" id="c2ack">
+        I understand Class 2 firearms are legal for home/store defense only and may not be carried in public.</label>
+    </fieldset>
+
+    <fieldset id="class3Block" hidden>
+      <legend>Class 3 requirements</legend>
+      <div class="note">Class 3 registration requires Law Enforcement approval before it can be issued.</div>
+      <label class="f">Law Enforcement officer who approved this request <span class="req">*</span></label>
+      <input type="text" name="Class 3 Approving Officer" id="c3officer">
+      <label class="f">Reason for requesting a Class 3 firearm <span class="req">*</span></label>
+      <textarea name="Class 3 Reason" id="c3reason"></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>Payment and acknowledgements</legend>
+      <label class="f">Payment method <span class="req">*</span></label>
+      <select name="Payment Method" required>
+        <option value="">Select</option><option>Cash</option><option>Cash App</option>
+      </select>
+      <div class="note">Payment goes to the issuing officer. Fees: Class 1 is $5,000, Class 2 is $10,000, Class 3 is $25,000 and requires Law Enforcement approval.</div>
+      <label class="check"><input type="checkbox" name="Read Laws" value="Yes" required>
+        I have read the server weapons laws.</label>
+      <label class="check"><input type="checkbox" name="Revocation Understood" value="Yes" required>
+        I understand misuse of firearms may result in my registration being revoked.</label>
+      <label class="check"><input type="checkbox" name="Info Accurate" value="Yes" required>
+        I confirm all information above is accurate.</label>
+    </fieldset>
+
+    <button class="submit" type="submit" id="submit-w">Submit application</button>
+    <div class="status" id="status-w"></div>
+  </form>
+
+  <!-- ============ BUSINESS FORM ============ -->
+  <form id="form-b" hidden>
+    <input type="hidden" name="access_key" value="e7d31af5-5035-42c1-8aef-91bab0f929fc">
+    <input type="hidden" name="subject" value="New Business License Application">
+    <input type="hidden" name="from_name" value="DOJ Applications">
+    <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+
+    <fieldset>
+      <legend>Owner information</legend>
+      <label class="f">Discord username <span class="req">*</span></label>
+      <input type="text" name="Discord" required>
+      <label class="f">Character full name <span class="req">*</span></label>
+      <input type="text" name="Character Name" required>
+      <label class="f">Phone number (IC) <span class="req">*</span></label>
+      <input type="tel" name="Phone" required>
+    </fieldset>
+
+    <fieldset>
+      <legend>Business details</legend>
+      <label class="f">Business name <span class="req">*</span></label>
+      <input type="text" name="Business Name" required>
+      <label class="f">Business type <span class="req">*</span></label>
+      <select name="Business Type" required>
+        <option value="">Select a type</option>
+        <option>Restaurant / Bar</option><option>Mechanic</option><option>Retail</option>
+        <option>Entertainment</option><option>Real Estate</option><option>Other</option>
+      </select>
+      <label class="f">Description of what you will offer <span class="req">*</span></label>
+      <textarea name="Description" required></textarea>
+      <label class="f">Proposed location / address (IC) <span class="req">*</span></label>
+      <input type="text" name="Location" required>
+      <label class="f">Planned number of employees</label>
+      <input type="number" name="Employees" min="0">
+      <label class="f">Partners or co-owners (if any)</label>
+      <input type="text" name="Partners">
+
+      <div class="f">Does the business need special permits? (check all that apply)</div>
+      <label class="check"><input type="checkbox" name="Permit - Food" value="Yes"> Food</label>
+      <label class="check"><input type="checkbox" name="Permit - Alcohol" value="Yes"> Alcohol</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Acknowledgements</legend>
+      <label class="check"><input type="checkbox" name="Agrees to Laws" value="Yes" required>
+        I agree to follow all server laws and regulations.</label>
+      <label class="check"><input type="checkbox" name="Revocation Understood" value="Yes" required>
+        I understand my license can be suspended or revoked for violations.</label>
+    </fieldset>
+
+    <button class="submit" type="submit" id="submit-b">Submit application</button>
+    <div class="status" id="status-b"></div>
+  </form>
+</div>
+
+<script>
+  // Switch between forms
+  function show(which) {
+    document.getElementById('form-w').hidden = which !== 'w';
+    document.getElementById('form-b').hidden = which !== 'b';
+    document.getElementById('tab-w').setAttribute('aria-selected', which === 'w');
+    document.getElementById('tab-b').setAttribute('aria-selected', which === 'b');
+  }
+
+  // Weapons form: show Class 2 / Class 3 extras and only require them when visible
+  const fclass = document.getElementById('fclass');
+  function updateClass() {
+    const v = fclass.value;
+    const c2 = v === 'Class 2', c3 = v === 'Class 3';
+    document.getElementById('class2Block').hidden = !c2;
+    document.getElementById('class3Block').hidden = !c3;
+    document.getElementById('c2loc').required = c2;
+    document.getElementById('c2ack').required = c2;
+    document.getElementById('c3officer').required = c3;
+    document.getElementById('c3reason').required = c3;
+  }
+  fclass.addEventListener('change', updateClass);
+
+  // Submit via Web3Forms (emails the form contents)
+  function wire(id, statusId, btnId, after) {
+    const form = document.getElementById(id);
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const status = document.getElementById(statusId);
+      const btn = document.getElementById(btnId);
+      btn.disabled = true; status.style.color = ''; status.textContent = 'Sending...';
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST', body: new FormData(form)
+        });
+        const data = await res.json();
+        if (data.success) {
+          status.style.color = 'var(--ok)';
+          status.textContent = 'Application submitted. You will be contacted in Discord.';
+          form.reset();
+          if (after) after();
+        } else { throw new Error(data.message || 'Failed'); }
+      } catch (err) {
+        status.style.color = 'var(--err)';
+        status.textContent = 'Could not submit: ' + err.message;
+      }
+      btn.disabled = false;
+    });
+  }
+  wire('form-w', 'status-w', 'submit-w', updateClass);
+  wire('form-b', 'status-b', 'submit-b');
+</script>
+</body>
+</html>
